@@ -24,6 +24,9 @@ function VideoUploadPage() {
     const [Description, setDescription] = useState("");
     const [Private, setPrivate] = useState(0);
     const [Category, setCategory] = useState("Film & Animation");
+    const [FilePath, setFilePath] = useState("");
+    const [Duration, setDuration] = useState("");
+    const [ThumbnailPath, setThumbnailPath] = useState("");
 
     const onTitleChange  = (e) => {
         setVideoTitle(e.currentTarget.value)
@@ -47,12 +50,28 @@ function VideoUploadPage() {
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        console.log(files)
         formData.append("file", files[0])
         Axios.post('/api/video/uploadfiles', formData, config)
         .then(response => {
-            console.log(response.data)
             if(response.data.success) {
+                console.log(response.data)
+                let variable = {
+                    url: response.data.path,
+                    filename: response.data.fileName
+                }
+                setFilePath(response.data.path)
+
+                Axios.post('/api/video/thumbnail', variable)
+                .then(response => {
+                    console.log(response.data)
+                    if(response.data.success) {
+                        console.log(response.data)
+                        setDuration(response.data.fileDuration)
+                        setThumbnailPath(response.data.url)
+                    } else {
+                        alert('썸네일 생성에 실패했습니다.')
+                    }
+                })
             }else {
                 alert('비디오 업로드를 실패했습니다.')
             }
@@ -82,9 +101,11 @@ function VideoUploadPage() {
 
                     </Dropzone>
                     {/* Thumbnail */}
+                    {ThumbnailPath &&
                     <div>
-                        <img src alt/>
+                        <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail"/>
                     </div>
+                    }
                 </div>
 
                 <br />
