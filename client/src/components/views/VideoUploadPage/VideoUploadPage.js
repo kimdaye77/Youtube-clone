@@ -43,16 +43,16 @@ function VideoUploadPage() {
 
     const onDrop = (files) => {
 
-        let formData = new FormData;
+        let formData = new FormData();
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
+        console.log(files)
         formData.append("file", files[0])
-
         Axios.post('/api/video/uploadfiles', formData, config)
         .then(response => {
+            console.log(response.data)
             if(response.data.success) {
-
             }else {
                 alert('비디오 업로드를 실패했습니다.')
             }
@@ -70,7 +70,7 @@ function VideoUploadPage() {
                     <Dropzone
                     onDrop={onDrop}
                     multiple={false}
-                    maxSize={10000000}
+                    maxSize={1000000000}
                     >
                     {({ getRootProps, getInputProps }) => (
                         <div style={{ width: '300px', height: '240px', border:'1px solid lightgray', display:'flex',
@@ -122,7 +122,7 @@ function VideoUploadPage() {
                 <br />
                 <br />
 
-                <Button type="primary" size="large" onClick>
+                <Button type="primary" size="large">
                     Submit
                 </Button>
 
