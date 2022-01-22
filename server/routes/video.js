@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require("multer");
 
-// const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 const { auth } = require("../middleware/auth");
 var ffmpeg = require("fluent-ffmpeg");
 
@@ -76,5 +76,19 @@ router.post('/thumbnail', (req, res) => {
         filename: 'thumbnail-%b.png'
     })
 })
+
+router.post('/uploadVideo', (req, res) => {
+    //비디오 정보들을 저장한다.
+    
+    const video = new Video(req.body)
+
+    //몽고DB 저장
+    video.save((err, doc) => {
+        if(err) return res.json({ success: false, err })
+        res.status(200).json({ success: true})
+    })
+
+})
+
 
 module.exports = router;
