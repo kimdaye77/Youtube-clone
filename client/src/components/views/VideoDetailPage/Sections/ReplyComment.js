@@ -8,27 +8,27 @@ function ReplyComment(props) {
       
         let commentNumber = 0;
     
-        props.commentLsits.map((comment) => {
+        {props.commentLists.map((comment) => {
             if(comment.responseTo === props.parentCommentId) {
                 commentNumber++
             }
-        })
+        })}
 
         setChildCommentNumber(commentNumber)
     }, [props.CommentLists])
     
 
     const renderReplyComment = (parentCommentId) => {
-        props.CommentLists.map((comment, index) => (
-            <React.Fragment>
+        {props.commentLists && props.commentLists.map((comment) => (
+            <>
                 {comment.responseTo === parentCommentId &&
                     <div style={{ width: '80%', marginLeft: '40px' }}>
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
-                        <ReplyComment CommentLists={props.CommentLists} parentCommentId={comment._id} postId={props.postId} refreshFunction={props.refreshFunction} />
+                        <ReplyComment commentLists={props.commentLists} parentCommentId={comment._id} postId={props.postId} refreshFunction={props.refreshFunction} />
                     </div>
                 }
-            </React.Fragment>
-        ))
+            </>
+        ))}
     }
 
 
@@ -45,7 +45,7 @@ function ReplyComment(props) {
                 View {ChildCommentNumber} more Comments(s)
             </p>
         }
-          {renderReplyComment(props.parentCommentId)}
+          {OpenReplyComments&&renderReplyComment(props.parentCommentId)}
       </div>
   )
 }
