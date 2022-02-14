@@ -41,7 +41,7 @@ function Subscribe(props) {
     
     useEffect(() => {
         
-        let subscribedVariable = { userTo: props.userTo, userFrom: props.userFrom}
+        const subscribedVariable = { userTo: props.userTo, userFrom: props.userFrom}
 
         Axios.post('/api/subscribe/subscribeNumber', subscribedVariable)
         .then( response => {
@@ -54,10 +54,11 @@ function Subscribe(props) {
         })
 
         
-        Axios.post('api/subscribe/subscribed', subscribedVariable)
+        Axios.post('/api/subscribe/subscribed', subscribedVariable)
         .then(response=>{
             if(response.data.success){
-                setSubscribed(response.data.result)
+                setSubscribed(response.data.subscribe)
+                console.log(Subscribed)
             }else{
                 alert('정보를 받아오지 못했습니다.')
             }

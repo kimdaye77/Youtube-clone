@@ -9,12 +9,11 @@ function SubscriptionPage() {
     const [Video, setVideo] = useState([]);
 
     useEffect(() => {
-      
         const subscriptionVariable = {
             userFrom: localStorage.getItem('userId')
         }
         Axios.post('/api/video/getSubscriptionVideos', subscriptionVariable)
-        .then(response => {
+        .then(response => {        
             if(response.data.success) {
                 console.log(response.data)
                 setVideo(response.data.videos)
