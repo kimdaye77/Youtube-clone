@@ -51,7 +51,7 @@ function VideoDetailPage(props) {
                             <video style={{width:'100%'}} src={`http://localhost:5000/${VideoDetail.filePath}`} controls />
         
                             <List.Item
-                            actions={[<LikeDislikes video={video.id} userId={localStorage.getItem('userId')}/>, subscribeButton]}
+                            actions={[<LikeDislikes videoId={videoId} userId={localStorage.getItem('userId')}/>, subscribeButton]}
                             >
                                 <List.Item.Meta
                                     avatar={<Avatar src={VideoDetail.writer.image}/>}
