@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const { auth } = require("../middleware/auth");
+const { auth } = require("../middleware/auth");
 const { Comment } = require("../models/Comment");
 
 //=================================
@@ -22,6 +22,7 @@ router.post("/saveComment", (req, res) => {
     })
 
 });
+
 
 router.post("/getComments", (req, res) => {
     Comment.find({"postId":req.body.videoId})

@@ -23,13 +23,12 @@ function SingleComment(props) {
         const variables = {
             content: CommentValue,
             writer: localStorage.getItem('userId'),
-            postId: props.videoId,
+            postId: props.postId,
             responseTo: props.comment._id
         }
         Axios.post('/api/comment/saveComment', variables)
         .then(response => {
             if(response.data.success){
-                console.log(response.data.result)
                 setCommentValue("")
                 setOpenReply(!OpenReply)                
                 props.refreshFunction(response.data.result)

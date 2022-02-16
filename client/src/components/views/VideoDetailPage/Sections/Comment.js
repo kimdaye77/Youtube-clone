@@ -46,6 +46,7 @@ function Comment(props) {
 
           {/* Comments Lists */}
           {props.commentLists && props.commentLists.map((comment, index) => (
+                //responseTo가 없으면
                 (!comment.responseTo &&
                     <>
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />

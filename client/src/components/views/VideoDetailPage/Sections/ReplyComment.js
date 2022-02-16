@@ -4,17 +4,17 @@ import SingleComment from './SingleComment'
 function ReplyComment(props) {
     const [ChildCommentNumber, setChildCommentNumber] = useState(0)
     const [OpenReplyComments, setOpenReplyComments] = useState(false)
+    
     useEffect(() => {
-      
         let commentNumber = 0;
     
-        props.commentLists.map((comment, index) => {
+        props.commentLists&&props.commentLists.map((comment, index) => {
             if(comment.responseTo === props.parentCommentId) {
-                commentNumber +=1
+                commentNumber++
             }
         })
         setChildCommentNumber(commentNumber)
-    }, [props.commentLists])
+    }, [props.commentLists, props.parentCommentId])
     
 
     let renderReplyComment = (parentCommentId) =>
@@ -41,7 +41,7 @@ function ReplyComment(props) {
                 View {ChildCommentNumber} more Comments(s)
             </p>
         }
-          {OpenReplyComments&&
+        {OpenReplyComments&&
           renderReplyComment(props.parentCommentId)}
       </div>
   )
