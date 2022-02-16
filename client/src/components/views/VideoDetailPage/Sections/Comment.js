@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import {useSelector} from 'react-redux'
+import {Input } from 'antd'
 import Axios from 'axios'
+
 import SingleComment from './SingleComment'
 import ReplyComment from './ReplyComment'
+
+const { TextArea } = Input;
 
 function Comment(props) {
     const videoId = props.postId
@@ -53,11 +57,11 @@ function Comment(props) {
           {/* Root Comment Form */}
 
           <form style={{ display : 'flex'}} onSubmit={onSubmit}>
-              <textarea
+              <TextArea
                 style={{width: '100%', borderRadius: '5px'}}
                 onChange={handleClick}
                 value={commentValue}
-                placeholder="코멘트를 작성해 주세요"
+                placeholder="코멘트를 작성해 주세요(루트)"
             />
             <br />
             <button style={{width:'20%', height:'52px'}} onClick={onSubmit}>Submit</button>
